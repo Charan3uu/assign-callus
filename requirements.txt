@@ -1,4 +1,5 @@
 numpy
 pandas
 mediapipe
-
+flask
+flask-cors
