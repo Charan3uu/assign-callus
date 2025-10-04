@@ -1,0 +1,34 @@
+import unittest
+from app import detect_dance_poses
+import os
+import json
+
+class TestDancePoseAnalyzer(unittest.TestCase):
+
+    def setUp(self):
+        self.sample_video = "sample2.mp4"
+        self.output_json = "summary.json"
+
+    def test_detection_runs(self):
+        """Test that function runs without errors and returns a dict"""
+        summary = detect_dance_poses(self.sample_video, self.output_json)
+        self.assertIsInstance(summary, dict)
+        self.assertIn("total_frames", summary)
+        self.assertIn("pose_counts", summary)
+
+    def test_json_output_exists(self):
+        """Test JSON file is created and valid"""
+        detect_dance_poses(self.sample_video, self.output_json)
+        self.assertTrue(os.path.exists(self.output_json))
+        with open(self.output_json) as f:
+            data = json.load(f)
+        self.assertIsInstance(data, dict)
+        self.assertIn("total_frames", data)
+        self.assertIn("pose_counts", data)
+
+    def tearDown(self):
+        if os.path.exists(self.output_json):
+            os.remove(self.output_json)
+
+if __name__ == "__main__":
+    unittest.main()
