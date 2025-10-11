@@ -1,8 +1,0 @@
-numpy
-pandas
-mediapipe
-
-
-
-python app.py --video sample.mp4 --out summary.json
-python -m test.py
